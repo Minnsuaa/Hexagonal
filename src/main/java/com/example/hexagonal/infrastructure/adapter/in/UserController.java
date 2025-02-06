@@ -4,7 +4,6 @@ import com.example.hexagonal.application.port.in.SignupUseCase;
 import com.example.hexagonal.infrastructure.adapter.in.dto.request.UserRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
