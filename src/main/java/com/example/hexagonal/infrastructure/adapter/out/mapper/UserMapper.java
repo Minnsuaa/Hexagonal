@@ -9,8 +9,17 @@ public class UserMapper {
 
     public UserEntity toUserEntity(User user) {
         return UserEntity.builder()
+                .id(user.getId())
                 .accountId(user.getAccountId())
                 .password(user.getPassword())
+                .build();
+    }
+
+    public User toUser(UserEntity userEntity) {
+        return User.builder()
+                .id(userEntity.getId())
+                .accountId(userEntity.getAccountId())
+                .password(userEntity.getPassword())
                 .build();
     }
 
