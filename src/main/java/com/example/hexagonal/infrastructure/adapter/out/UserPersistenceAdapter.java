@@ -1,6 +1,7 @@
 package com.example.hexagonal.infrastructure.adapter.out;
 
 import com.example.hexagonal.application.port.out.UserPort;
+import com.example.hexagonal.domain.exception.UserNotFoundException;
 import com.example.hexagonal.domain.model.User;
 import com.example.hexagonal.infrastructure.adapter.out.entity.UserEntity;
 import com.example.hexagonal.infrastructure.adapter.out.mapper.UserMapper;
@@ -25,6 +26,13 @@ public class UserPersistenceAdapter implements UserPort {
 
         UserEntity userEntity = userMapper.toUserEntity(user);
         userRepository.save(userEntity);
+    }
+
+    @Override
+    public User findByAccountId(String accountId) {
+        return userRepository.findByAccountId(accountId)
+                .map(userMapper::toUser)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 
 }
