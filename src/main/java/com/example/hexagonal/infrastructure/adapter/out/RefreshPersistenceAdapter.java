@@ -28,4 +28,11 @@ public class RefreshPersistenceAdapter implements RefreshPort {
         refreshTokenRepository.delete(refreshToken);
     }
 
+    @Override
+    public RefreshToken findRefreshToken(String token) {
+        return refreshTokenRepository.findByRefreshToken(token)
+                .map(refreshMapper::toDomain)
+                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
+    }
+
 }

@@ -9,4 +9,6 @@ public interface RefreshPort {
 
     void deleteToken(RefreshTokenEntity refreshToken);
 
+    RefreshToken findRefreshToken(String refreshToken);
+
 }
