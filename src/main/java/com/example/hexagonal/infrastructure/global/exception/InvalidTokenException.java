@@ -8,7 +8,7 @@ public class InvalidTokenException extends HexagonalException {
     public static final HexagonalException EXCEPTION = new InvalidTokenException();
 
     private InvalidTokenException() {
-        super(ErrorCode.EXPIRED_TOKEN);
+        super(ErrorCode.INVALID_TOKEN);
     }
 
 }
