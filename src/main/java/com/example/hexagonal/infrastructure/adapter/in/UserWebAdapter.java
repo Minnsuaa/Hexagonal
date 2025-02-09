@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
-public class UserController {
+public class UserWebAdapter {
 
     private final SignupUseCase signupUseCase;
     private final LoginUseCase loginUseCase;
