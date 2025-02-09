@@ -1,6 +1,7 @@
 package com.example.hexagonal.application.service;
 
 import com.example.hexagonal.application.port.in.SignupUseCase;
+import com.example.hexagonal.application.port.out.SecurityPort;
 import com.example.hexagonal.application.port.out.UserPort;
 import com.example.hexagonal.domain.model.User;
 import com.example.hexagonal.infrastructure.adapter.in.dto.request.UserRequest;
@@ -12,12 +13,13 @@ import org.springframework.stereotype.Service;
 public class SignupService implements SignupUseCase {
 
     private final UserPort userPort;
+    private final SecurityPort securityPort;
 
     @Override
     public void signup(UserRequest request) {
         User user = User.builder()
                 .accountId(request.getAccountId())
-                .password(request.getPassword())
+                .password(securityPort.encodePassword(request.getPassword()))
                 .build();
 
         userPort.save(user);
