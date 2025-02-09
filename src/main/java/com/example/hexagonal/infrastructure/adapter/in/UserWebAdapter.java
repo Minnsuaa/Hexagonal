@@ -1,6 +1,7 @@
 package com.example.hexagonal.infrastructure.adapter.in;
 
 import com.example.hexagonal.application.port.in.LoginUseCase;
+import com.example.hexagonal.application.port.in.LogoutUseCase;
 import com.example.hexagonal.application.port.in.SignupUseCase;
 import com.example.hexagonal.infrastructure.adapter.in.dto.request.UserRequest;
 import com.example.hexagonal.infrastructure.adapter.in.dto.response.TokenResponse;
@@ -16,6 +17,7 @@ public class UserWebAdapter {
 
     private final SignupUseCase signupUseCase;
     private final LoginUseCase loginUseCase;
+    private final LogoutUseCase logoutUseCase;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -26,6 +28,12 @@ public class UserWebAdapter {
     @PostMapping("/login")
     public TokenResponse login(@RequestBody @Valid UserRequest userRequest) {
         return loginUseCase.login(userRequest);
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void logout() {
+        logoutUseCase.logout();
     }
 
 }
