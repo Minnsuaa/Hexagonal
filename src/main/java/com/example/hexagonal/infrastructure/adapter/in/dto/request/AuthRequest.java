@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserRequest {
+public class AuthRequest {
 
     @NotBlank
     @Size(min = 8, max = 20)

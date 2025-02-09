@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/user/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(new JwtFilter(jwtParserAdapter), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new ExceptionFilter(objectMapper), JwtFilter.class)

@@ -1,7 +1,7 @@
 package com.example.hexagonal.application.port.in;
 
-import com.example.hexagonal.infrastructure.adapter.in.dto.request.UserRequest;
+import com.example.hexagonal.infrastructure.adapter.in.dto.request.AuthRequest;
 
 public interface SignupUseCase {
-    void signup(UserRequest request);
+    void signup(AuthRequest request);
 }

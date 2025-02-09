@@ -4,7 +4,7 @@ import com.example.hexagonal.application.port.in.SignupUseCase;
 import com.example.hexagonal.application.port.out.SecurityPort;
 import com.example.hexagonal.application.port.out.UserPort;
 import com.example.hexagonal.domain.model.User;
-import com.example.hexagonal.infrastructure.adapter.in.dto.request.UserRequest;
+import com.example.hexagonal.infrastructure.adapter.in.dto.request.AuthRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,7 @@ public class SignupService implements SignupUseCase {
 
     @Override
     @Transactional
-    public void signup(UserRequest request) {
+    public void signup(AuthRequest request) {
         User user = User.builder()
                 .accountId(request.getAccountId())
                 .password(securityPort.encodePassword(request.getPassword()))
