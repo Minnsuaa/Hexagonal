@@ -7,6 +7,8 @@ import com.example.hexagonal.infrastructure.global.security.auth.AuthDetailsServ
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,12 +16,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.spec.SecretKeySpec;
+
 @Component
 @RequiredArgsConstructor
 public class JwtParserAdapter implements JwtParserPort {
 
     private final JwtProperties jwtProperties;
     private final AuthDetailsService authDetailsService;
+
+    private SecretKeySpec secretKeySpec;
+
+    @PostConstruct
+    public void initSecretKeySpec() {
+        this.secretKeySpec = new SecretKeySpec(jwtProperties.getSecretKey().getBytes(), SignatureAlgorithm.HS256.getJcaName());
+    }
 
     @Override
     public String parseToken(String bearerToken) {
@@ -37,9 +48,9 @@ public class JwtParserAdapter implements JwtParserPort {
     private Claims getTokenBody(String token) {
         try {
             return Jwts.parserBuilder()
-                    .setSigningKey(jwtProperties.getSecretKey())
+                    .setSigningKey(secretKeySpec)
                     .build()
-                    .parseClaimsJwt(token)
+                    .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
             throw ExpiredTokenException.EXCEPTION;
