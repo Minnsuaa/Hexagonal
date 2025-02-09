@@ -7,6 +7,7 @@ import com.example.hexagonal.domain.model.User;
 import com.example.hexagonal.infrastructure.adapter.in.dto.request.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +17,7 @@ public class SignupService implements SignupUseCase {
     private final SecurityPort securityPort;
 
     @Override
+    @Transactional
     public void signup(UserRequest request) {
         User user = User.builder()
                 .accountId(request.getAccountId())

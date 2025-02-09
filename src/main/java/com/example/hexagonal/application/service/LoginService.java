@@ -10,6 +10,7 @@ import com.example.hexagonal.infrastructure.adapter.in.dto.request.UserRequest;
 import com.example.hexagonal.infrastructure.adapter.in.dto.response.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class LoginService implements LoginUseCase {
     private final SecurityPort securityPort;
 
     @Override
+    @Transactional
     public TokenResponse login(UserRequest request) {
         User user = userPort.findByAccountId(request.getAccountId());
         if (!securityPort.isPasswordMatch(request.getPassword(), user.getPassword())) {
