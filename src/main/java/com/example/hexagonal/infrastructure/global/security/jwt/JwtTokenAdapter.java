@@ -57,11 +57,13 @@ public class JwtTokenAdapter implements JwtPort {
 
     @Override
     public TokenResponse getTokens(String accountId) {
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+
         return TokenResponse.builder()
                 .accessToken(generateAccess(accountId))
                 .refreshToken(generateRefresh(accountId))
-                .accessExpiredAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).plusSeconds(jwtProperties.getAccessExp()))
-                .refreshExpiredAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")).plusSeconds(jwtProperties.getRefreshExp()))
+                .accessExpiredAt(now.plusSeconds(jwtProperties.getAccessExp()))
+                .refreshExpiredAt(now.plusSeconds(jwtProperties.getRefreshExp()))
                 .build();
 
     }
