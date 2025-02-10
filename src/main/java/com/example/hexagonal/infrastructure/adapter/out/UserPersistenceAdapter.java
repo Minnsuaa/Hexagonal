@@ -24,14 +24,14 @@ public class UserPersistenceAdapter implements UserPort {
             throw new HexagonalException(ErrorCode.ALREADY_USER_EXIST);
         }
 
-        UserEntity userEntity = userMapper.toUserEntity(user);
+        UserEntity userEntity = userMapper.toEntity(user);
         userRepository.save(userEntity);
     }
 
     @Override
     public User findByAccountId(String accountId) {
         return userRepository.findByAccountId(accountId)
-                .map(userMapper::toUser)
+                .map(userMapper::toDomain)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 

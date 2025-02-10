@@ -32,7 +32,7 @@ public class SecurityAdapter implements SecurityPort {
     public User getCurrentUser() {
         String accountId = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByAccountId(accountId)
-                .map(userMapper::toUser)
+                .map(userMapper::toDomain)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 
