@@ -21,7 +21,7 @@ public class LoginService implements LoginUseCase {
     private final SecurityPort securityPort;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public TokenResponse login(AuthRequest request) {
         User user = userPort.findByAccountId(request.getAccountId());
         if (!securityPort.isPasswordMatch(request.getPassword(), user.getPassword())) {
